@@ -88,7 +88,7 @@ void buscarSeq(ListaSeq *L, int rg) {
             return;
         }
     }
-    puts("buscarSeq: não encontrado");
+    puts("buscarSeq: nao encontrado");
 }
 
 void buscarBinSeq(ListaSeq *L, int rg) {
@@ -103,7 +103,7 @@ void buscarBinSeq(ListaSeq *L, int rg) {
         if (L->itens[m].rg < rg) lo = m + 1;
         else hi = m - 1;
     }
-    puts("buscarBinSeq: não encontrado");
+    puts("buscarBinSeq: nao encontrado");
 }
 
 // stubs para ordenação – implemente conforme PDF

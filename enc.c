@@ -2,7 +2,7 @@
 #include "lib_enc.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h>;
 #include <time.h>
 
 Node* criarListaEnc(void) {
@@ -110,7 +110,7 @@ void buscarEnc(Node *head, int rg) {
         }
         head = head->proximo; pos++;
     }
-    puts("buscarEnc: não encontrado");
+    puts("buscarEnc: nao encontrado");
 }
 
 void imprimirListaEnc(Node *head) {
