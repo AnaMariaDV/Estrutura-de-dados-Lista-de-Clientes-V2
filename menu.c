@@ -73,6 +73,7 @@ void menuSequencial(ListaSeq *L) {
                     ">> "
                 );
                 {
+                    //IMPLEMENTAR AS FUNCOES 
                     int m; scanf("%d",&m);
                     switch (m) {
                         case 1: ordenarSelecao(L);    break;
