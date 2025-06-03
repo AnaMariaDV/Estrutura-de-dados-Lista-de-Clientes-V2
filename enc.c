@@ -2,7 +2,7 @@
 #include "lib_enc.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>;
+#include <string.h>
 #include <time.h>
 
 Node* criarListaEnc(void) {

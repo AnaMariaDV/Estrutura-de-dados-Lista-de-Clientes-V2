@@ -34,13 +34,14 @@ void removerPosicaoSeq (ListaSeq *L, int pos);
 void buscarSeq     (ListaSeq *L, int rg);
 void buscarBinSeq  (ListaSeq *L, int rg);
 
-// ordenações (nomes em inglês)
+// ordenações 
 void selectionSort  (ListaSeq *L);
-void insertionSort  (ListaSeq *L);
-void bubbleSort     (ListaSeq *L);
-void shellSort      (ListaSeq *L);
-void quickSort      (ListaSeq *L);
-void mergeSort      (ListaSeq *L);
+void insertionSort(ListaSeq *L);
+void bubbleSort(ListaSeq *L);
+void shellSort(ListaSeq *L);
+void quickSort(ListaSeq *L);
+void mergeSort(ListaSeq *L);
+
 
 // I/O e exibição
 void imprimirListaSeq   (ListaSeq *L);

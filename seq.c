@@ -1,4 +1,4 @@
-// seq.c — Implementação da Lista Sequencial (sem menu)
+
 #include "lib_seq.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,8 +106,8 @@ void buscarBinSeq(ListaSeq *L, int rg) {
     puts("buscarBinSeq: nao encontrado");
 }
 
-// stubs para ordenação – implemente conforme PDF
-void ordenarSelecao(int v[], int n) {
+
+void selectionShort(int v[], int n) {
     for (int i = 0; i < n-1; i++) {
         int min = i;
         for (int j = i+1; j < n; j++) {
@@ -120,19 +120,21 @@ void ordenarSelecao(int v[], int n) {
     }
 }
 
-void ordenarInsercao(int v[], int n) {
-    for (int i = 1; i < n; i++) {
-        int chave = v[i];
-        int j = i - 1;
-        while (j >= 0 && v[j] > chave) {
-            v[j+1] = v[j];
+void insertionSort(ListaSeq *L) {
+    int i, j, aux;
+    for (i = 1; i < L->n; i++) {
+        aux = L->itens[i];
+        j = i - 1;
+        while ((j >= 0) && (L->itens[j] > aux)) {
+            L->itens[j + 1] = L->itens[j];
             j--;
         }
-        v[j+1] = chave;
+        L->itens[j + 1]= aux;
     }
 }
 
-void ordenarBolha(int v[], int n) {
+
+void bubbleSort(int v[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - 1 - i; j++) {
             if (v[j] > v[j + 1]) {
@@ -144,7 +146,7 @@ void ordenarBolha(int v[], int n) {
     }
 }
 
-void ordenarShell(int v[], int n) {
+void shellSort(int v[], int n) {
     for (int gap = n/2; gap > 0; gap /= 2) {
         for (int i = gap; i < n; i++) {
             int temp = v[i];
@@ -157,7 +159,7 @@ void ordenarShell(int v[], int n) {
     }
 }
 
-void ordenarQuick(int v[], int inicio, int fim) {
+void quickSort(int v[], int inicio, int fim) {
     if (inicio < fim) {
         int pivo = v[fim];
         int i = inicio - 1;
@@ -177,29 +179,12 @@ void ordenarQuick(int v[], int inicio, int fim) {
 
         int pi = i + 1;
 
-        ordenarQuick(v, inicio, pi - 1);
-        ordenarQuick(v, pi + 1, fim);
+        quickSort(v, inicio, pi - 1);
+        QuickSort(v, pi + 1, fim);
     }
 }
-void merge(int v[], int inicio, int meio, int fim) {
-    int n1 = meio - inicio + 1;
-    int n2 = fim - meio;
 
-    int L[n1], R[n2];
-    for (int i = 0; i < n1; i++) L[i] = v[inicio + i];
-    for (int j = 0; j < n2; j++) R[j] = v[meio + 1 + j];
-
-    int i = 0, j = 0, k = inicio;
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) v[k++] = L[i++];
-        else v[k++] = R[j++];
-    }
-
-    while (i < n1) v[k++] = L[i++];
-    while (j < n2) v[k++] = R[j++];
-}
-
-void ordenarMerge(int v[], int inicio, int fim) {
+void mergeSort(int v[], int inicio, int fim) {
     if (inicio < fim) {
         int meio = inicio + (fim - inicio) / 2;
         ordenarMerge(v, inicio, meio);

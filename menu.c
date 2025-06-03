@@ -64,9 +64,9 @@ void menuSequencial(ListaSeq *L) {
             case 8:
                 printf(
                     "Algoritmos de Ordenação:\n"
-                    " 1) Seleco\n"
-                    " 2) Insero\n"
-                    " 3) Bolha\n"
+                    " 1) Selection\n"
+                    " 2) Insertion\n"
+                    " 3) Bubble\n"
                     " 4) Shell\n"
                     " 5) Quick\n"
                     " 6) Merge\n"
@@ -76,12 +76,12 @@ void menuSequencial(ListaSeq *L) {
                     //IMPLEMENTAR AS FUNCOES 
                     int m; scanf("%d",&m);
                     switch (m) {
-                        case 1: ordenarSelecao(L);    break;
-                        case 2: ordenarInsercao(L);   break;
-                        case 3: ordenarBolha(L);      break;
-                        case 4: ordenarShell(L);      break;
-                        case 5: ordenarQuick(L);      break;
-                        case 6: ordenarMerge(L);      break;
+                        case 1: selectionSort(L);    break;
+                        case 2: insertionSort(L);   break;
+                        case 3: bubbleSort(L);      break;
+                        case 4: shellSort(L);      break;
+                        case 5: quickSort(L);      break;
+                        case 6: mergeSort (L);      break;
                         default: printf("Opção invalida\n");
                     }
                 }
