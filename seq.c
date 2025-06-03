@@ -51,7 +51,9 @@ void inserirFimSeq(ListaSeq *L, const char *nome, int rg) {
 void inserirPosicaoSeq(ListaSeq *L, const char *nome, int rg, int pos) {
     MET_START;
     garantirCapacidade(L);
-    for (int i = L->tamanho; i > pos; --i) { L->itens[i] = L->itens[i-1]; M++; }
+    for (int i = L->tamanho; i > pos; --i) { 
+        L->itens[i] = L->itens[i-1]; 
+        M++; }
     strncpy(L->itens[pos].nome, nome, MAX_NOME);
     L->itens[pos].rg = rg; M++;
     L->tamanho++;
@@ -121,11 +123,13 @@ void selectionShort(int v[], int n) {
 }
 
 void insertionSort(ListaSeq *L) {
-    int i, j, aux;
-    for (i = 1; i < L->n; i++) {
+    int i, j, aux, itens;
+    for (i = 1; i < L->n; i++) 
+    {
         aux = L->itens[i];
         j = i - 1;
-        while ((j >= 0) && (L->itens[j] > aux)) {
+        while ((j >= 0) && (L->itens[j] > aux)) 
+        {
             L->itens[j + 1] = L->itens[j];
             j--;
         }
