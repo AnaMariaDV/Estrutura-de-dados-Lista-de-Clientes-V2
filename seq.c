@@ -107,12 +107,107 @@ void buscarBinSeq(ListaSeq *L, int rg) {
 }
 
 // stubs para ordenação – implemente conforme PDF
-void ordenarSelecao (ListaSeq *L) { /* ... */ }
-void ordenarInsercao(ListaSeq *L) { /* ... */ }
-void ordenarBolha   (ListaSeq *L) { /* ... */ }
-void ordenarShell   (ListaSeq *L) { /* ... */ }
-void ordenarQuick   (ListaSeq *L) { /* ... */ }
-void ordenarMerge   (ListaSeq *L) { /* ... */ }
+void ordenarSelecao(int v[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        int min = i;
+        for (int j = i+1; j < n; j++) {
+            if (v[j] < v[min])
+                min = j;
+        }
+        int tmp = v[i];
+        v[i] = v[min];
+        v[min] = tmp;
+    }
+}
+
+void ordenarInsercao(int v[], int n) {
+    for (int i = 1; i < n; i++) {
+        int chave = v[i];
+        int j = i - 1;
+        while (j >= 0 && v[j] > chave) {
+            v[j+1] = v[j];
+            j--;
+        }
+        v[j+1] = chave;
+    }
+}
+
+void ordenarBolha(int v[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (v[j] > v[j + 1]) {
+                int tmp = v[j];
+                v[j] = v[j + 1];
+                v[j + 1] = tmp;
+            }
+        }
+    }
+}
+
+void ordenarShell(int v[], int n) {
+    for (int gap = n/2; gap > 0; gap /= 2) {
+        for (int i = gap; i < n; i++) {
+            int temp = v[i];
+            int j;
+            for (j = i; j >= gap && v[j - gap] > temp; j -= gap) {
+                v[j] = v[j - gap];
+            }
+            v[j] = temp;
+        }
+    }
+}
+
+void ordenarQuick(int v[], int inicio, int fim) {
+    if (inicio < fim) {
+        int pivo = v[fim];
+        int i = inicio - 1;
+
+        for (int j = inicio; j < fim; j++) {
+            if (v[j] < pivo) {
+                i++;
+                int tmp = v[i];
+                v[i] = v[j];
+                v[j] = tmp;
+            }
+        }
+
+        int tmp = v[i+1];
+        v[i+1] = v[fim];
+        v[fim] = tmp;
+
+        int pi = i + 1;
+
+        ordenarQuick(v, inicio, pi - 1);
+        ordenarQuick(v, pi + 1, fim);
+    }
+}
+void merge(int v[], int inicio, int meio, int fim) {
+    int n1 = meio - inicio + 1;
+    int n2 = fim - meio;
+
+    int L[n1], R[n2];
+    for (int i = 0; i < n1; i++) L[i] = v[inicio + i];
+    for (int j = 0; j < n2; j++) R[j] = v[meio + 1 + j];
+
+    int i = 0, j = 0, k = inicio;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) v[k++] = L[i++];
+        else v[k++] = R[j++];
+    }
+
+    while (i < n1) v[k++] = L[i++];
+    while (j < n2) v[k++] = R[j++];
+}
+
+void ordenarMerge(int v[], int inicio, int fim) {
+    if (inicio < fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        ordenarMerge(v, inicio, meio);
+        ordenarMerge(v, meio + 1, fim);
+        merge(v, inicio, meio, fim);
+    }
+}
+
 
 void imprimirListaSeq(ListaSeq *L) {
     for (int i = 0; i < L->tamanho; ++i)
