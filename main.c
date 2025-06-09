@@ -2,13 +2,11 @@
 #include "lib_seq.h"
 #include "lib_enc.h"
 
-
 int main() {
     ListaSeq seq;
-    Node    *enc = NULL;
+    Node *enc = NULL;
     int opt;
-
-    printf("\nEscolha uma das opções para manipular sua lista:\n");
+    printf("\nEscolha uma das opcoes abaixo:\n");
     printf("1) Sequencial\n2) Encadeada\n>> ");
     scanf("%d", &opt);
 

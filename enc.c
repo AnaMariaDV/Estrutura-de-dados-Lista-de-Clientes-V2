@@ -1,4 +1,3 @@
-// enc.c — Implementação da Lista Encadeada (sem menu)
 #include "lib_enc.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,9 +17,9 @@ void liberarListaEnc(Node *head) {
 }
 
 #define MET_START  clock_t _t0 = clock(); long C=0, M=0;
-#define MET_END(msg,pos) \
-    printf(msg " ⇒ C(n)=%ld, M(n)=%ld, tempo=%.6fs, pos=%d\n", \
-           C, M, (double)(clock()-_t0)/CLOCKS_PER_SEC, pos);
+#define MET_END(msg) \
+    printf(msg " ⇒ C(n)=%ld, M(n)=%ld, tempo=%.6fs\n", \
+           C, M, (double)(clock()-_t0)/CLOCKS_PER_SEC)
 
 void inserirInicioEnc(Node **head, const char *nome, int rg) {
     MET_START;
@@ -29,7 +28,8 @@ void inserirInicioEnc(Node **head, const char *nome, int rg) {
     n->rg = rg; M++;
     n->proximo = *head; M++;
     *head = n;
-    MET_END("inserirInicioEnc", 0);
+    printf("Inserido: %s, %d, posição: 0\n", n->nome, n->rg);
+    MET_END("inserirInicioEnc");
 }
 
 void inserirFimEnc(Node **head, const char *nome, int rg) {
@@ -38,15 +38,18 @@ void inserirFimEnc(Node **head, const char *nome, int rg) {
     strncpy(n->nome, nome, MAX_NOME);
     n->rg = rg; M++;
     n->proximo = NULL;
+    int pos = 0;
     if (!*head) {
         *head = n; M++;
-        MET_END("inserirFimEnc", 0);
+        printf("Inserido: %s, %d, posição: %d\n", n->nome, n->rg, pos);
+        MET_END("inserirFimEnc");
         return;
     }
-    Node *p = *head; int pos = 0;
+    Node *p = *head;
     while (p->proximo) { p = p->proximo; C++; pos++; }
     p->proximo = n; M++;
-    MET_END("inserirFimEnc", pos+1);
+    printf("Inserido: %s, %d, posição: %d\n", n->nome, n->rg, pos + 1);
+    MET_END("inserirFimEnc");
 }
 
 void inserirPosicaoEnc(Node **head, const char *nome, int rg, int pos) {
@@ -56,33 +59,37 @@ void inserirPosicaoEnc(Node **head, const char *nome, int rg, int pos) {
     }
     MET_START;
     Node *p = *head; int i = 0;
-    while (p && i+1 < pos) { p = p->proximo; C++; i++; }
+    while (p && i + 1 < pos) { p = p->proximo; C++; i++; }
     Node *n = malloc(sizeof(Node));
     strncpy(n->nome, nome, MAX_NOME);
     n->rg = rg; M++;
     n->proximo = p ? p->proximo : NULL; M++;
     if (p) p->proximo = n; else *head = n;
-    MET_END("inserirPosicaoEnc", pos);
+    printf("Inserido: %s, %d, posição: %d\n", n->nome, n->rg, pos);
+    MET_END("inserirPosicaoEnc");
 }
 
 void removerInicioEnc(Node **head) {
     MET_START;
     if (!*head) return;
     Node *t = *head;
+    printf("Removido: %s, %d, posição: 0\n", t->nome, t->rg);
     *head = t->proximo; M++;
     free(t);
-    MET_END("removerInicioEnc", 0);
+    MET_END("removerInicioEnc");
 }
 
 void removerFimEnc(Node **head) {
     MET_START;
     if (!*head) return;
-    Node *p = *head, *ant = NULL; int pos = 0;
+    Node *p = *head, *ant = NULL;
+    int pos = 0;
     while (p->proximo) { ant = p; p = p->proximo; C++; pos++; }
+    printf("Removido: %s, %d, posição: %d\n", p->nome, p->rg, pos);
     if (ant) ant->proximo = NULL, M++;
     else    *head = NULL;
     free(p);
-    MET_END("removerFimEnc", pos);
+    MET_END("removerFimEnc");
 }
 
 void removerPosicaoEnc(Node **head, int pos) {
@@ -94,9 +101,10 @@ void removerPosicaoEnc(Node **head, int pos) {
     Node *p = *head, *ant = NULL; int i = 0;
     while (p && i < pos) { ant = p; p = p->proximo; C++; i++; }
     if (!p) return;
+    printf("Removido: %s, %d, posição: %d\n", p->nome, p->rg, pos);
     ant->proximo = p->proximo; M++;
     free(p);
-    MET_END("removerPosicaoEnc", pos);
+    MET_END("removerPosicaoEnc");
 }
 
 void buscarEnc(Node *head, int rg) {
@@ -105,18 +113,22 @@ void buscarEnc(Node *head, int rg) {
     while (head) {
         C++;
         if (head->rg == rg) {
-            MET_END("buscarEnc", pos);
+            printf("Encontrado: %s, %d, posição: %d\n", head->nome, head->rg, pos);
+            MET_END("buscarEnc");
             return;
         }
-        head = head->proximo; pos++;
+        head = head->proximo;
+        pos++;
     }
-    puts("buscarEnc: nao encontrado");
+    printf("buscarEnc: não encontrado\n");
 }
 
 void imprimirListaEnc(Node *head) {
+    int pos = 0;
     while (head) {
-        printf("%s,%d\n", head->nome, head->rg);
+        printf("%d: %s,%d\n", pos, head->nome, head->rg);
         head = head->proximo;
+        pos++;
     }
 }
 
@@ -133,10 +145,13 @@ Node* lerArquivoEnc(const char *nomeArquivo) {
     FILE *f = fopen(nomeArquivo, "r");
     if (!f) return NULL;
     Node *head = criarListaEnc();
-    char nome[MAX_NOME];
+    char linha[128], nome[MAX_NOME];
     int rg;
-    while (fscanf(f, " %49[^,],%d", nome, &rg) == 2)
-        inserirFimEnc(&head, nome, rg);
+    while (fgets(linha, sizeof(linha), f)) {
+        if (sscanf(linha, " %49[^,],%d", nome, &rg) == 2) {
+            inserirFimEnc(&head, nome, rg);
+        }
+    }
     fclose(f);
     return head;
 }

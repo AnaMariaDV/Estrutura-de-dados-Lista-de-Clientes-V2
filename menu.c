@@ -1,27 +1,24 @@
-// menu.c — Menus com escolhas numéricas em arquivo separado
 #include <stdio.h>
 #include "lib_seq.h"
 #include "lib_enc.h"
 
 void menuSequencial(ListaSeq *L) {
-    int op;
-    char nome[MAX_NOME];
-    int rg, pos;
+    int op; char nome[MAX_NOME]; int rg, pos;
+    char arquivo[100];
     do {
         printf(
             "\nMenu Sequencial:\n"
-            " 1) Inserir inicio\n"
+            " 1) Inserir início\n"
             " 2) Inserir fim\n"
             " 3) Inserir N\n"
-            " 4) Remover inicio\n"
+            " 4) Remover início\n"
             " 5) Remover fim\n"
             " 6) Remover N\n"
             " 7) Buscar RG\n"
-            " 8) Ordenar\n"
-            " 9) Mostrar\n"
-            "10) Salvar\n"
-            "11) Carregar\n"
-            "12) Sair\n"
+            " 8) Mostrar\n"
+            " 9) Salvar em arquivo\n"
+            "10) Carregar de arquivo\n"
+            "11) Sair\n"
             ">> "
         );
         scanf("%d", &op);
@@ -56,58 +53,36 @@ void menuSequencial(ListaSeq *L) {
                 printf("RG? ");      scanf("%d", &rg);
                 printf("1) Sequencial  2) Binária\n>> ");
                 {
-                    int m; scanf("%d",&m);
-                    if (m==1) buscarSeq(L, rg);
-                    else      buscarBinSeq(L, rg);
+                    int m; scanf("%d", &m);
+                    if (m == 1) buscarSeq(L, rg);
+                    else        buscarBinSeq(L, rg);
                 }
                 break;
             case 8:
-                printf(
-                    "Algoritmos de Ordenação:\n"
-                    " 1) Selection\n"
-                    " 2) Insertion\n"
-                    " 3) Bubble\n"
-                    " 4) Shell\n"
-                    " 5) Quick\n"
-                    " 6) Merge\n"
-                    ">> "
-                );
-                {
-                    //IMPLEMENTAR AS FUNCOES 
-                    int m; scanf("%d",&m);
-                    switch (m) {
-                        case 1: selectionSort(L);    break;
-                        case 2: insertionSort(L);   break;
-                        case 3: bubbleSort(L);      break;
-                        case 4: shellSort(L);      break;
-                        case 5: quickSort(L);      break;
-                        case 6: mergeSort (L);      break;
-                        default: printf("Opção invalida\n");
-                    }
-                }
-                break;
-            case 9:
                 imprimirListaSeq(L);
                 break;
+            case 9:
+                printf("Nome do arquivo para salvar: ");
+                scanf(" %99s", arquivo);
+                gravarArquivoSeq(L, arquivo);
+                break;
             case 10:
-                gravarArquivoSeq(L, "seq.txt");
+                printf("Nome do arquivo para carregar: ");
+                scanf(" %99s", arquivo);
+                lerArquivoSeq(L, arquivo);
                 break;
             case 11:
-                lerArquivoSeq(L, "seq.txt");
-                break;
-            case 12:
                 printf("Saindo...\n");
                 break;
             default:
-                printf("Opção invalida\n");
+                printf("Opção inválida\n");
         }
-    } while (op != 12);
+    } while (op != 11);
 }
 
 void menuEncadeada(Node **head) {
-    int op;
-    char nome[MAX_NOME];
-    int rg, pos;
+    int op; char nome[MAX_NOME]; int rg, pos;
+    char arquivo[100];
     do {
         printf(
             "\nMenu Encadeada:\n"
@@ -119,8 +94,8 @@ void menuEncadeada(Node **head) {
             " 6) Remover N\n"
             " 7) Buscar RG\n"
             " 8) Mostrar\n"
-            " 9) Salvar\n"
-            "10) Carregar\n"
+            " 9) Salvar em arquivo\n"
+            "10) Carregar de arquivo\n"
             "11) Sair\n"
             ">> "
         );
@@ -137,7 +112,7 @@ void menuEncadeada(Node **head) {
                 inserirFimEnc(head, nome, rg);
                 break;
             case 3:
-                printf("Pos? ");     scanf("%d", &pos);
+                printf("Qual a posicao? ");     scanf("%d", &pos);
                 printf("Nome? ");    scanf(" %49[^\n]", nome);
                 printf("RG? ");      scanf("%d", &rg);
                 inserirPosicaoEnc(head, nome, rg, pos);
@@ -149,21 +124,25 @@ void menuEncadeada(Node **head) {
                 removerFimEnc(head);
                 break;
             case 6:
-                printf("Pos? ");     scanf("%d", &pos);
+                printf("Qual a posicao? ");     scanf("%d", &pos);
                 removerPosicaoEnc(head, pos);
                 break;
             case 7:
-                printf("RG? ");      scanf("%d", &rg);
+                printf("Digite o RG: ");      scanf("%d", &rg);
                 buscarEnc(*head, rg);
                 break;
             case 8:
                 imprimirListaEnc(*head);
                 break;
             case 9:
-                gravarArquivoEnc(*head, "enc.txt");
+                printf("Nome do arquivo para salvar: ");
+                scanf(" %99s", arquivo);
+                gravarArquivoEnc(*head, arquivo);
                 break;
             case 10:
-                *head = lerArquivoEnc("enc.txt");
+                printf("Nome do arquivo para carregar: ");
+                scanf(" %99s", arquivo);
+                *head = lerArquivoEnc(arquivo);
                 break;
             case 11:
                 printf("Saindo...\n");

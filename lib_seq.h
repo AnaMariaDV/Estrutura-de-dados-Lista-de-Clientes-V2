@@ -1,8 +1,6 @@
-// lib_seq.h — Cabeçalho da Lista Sequencial
 #ifndef LIB_SEQ_H
 #define LIB_SEQ_H
 
-#include <time.h>
 #define MAX_NOME 50
 
 typedef struct {
@@ -34,14 +32,13 @@ void removerPosicaoSeq (ListaSeq *L, int pos);
 void buscarSeq     (ListaSeq *L, int rg);
 void buscarBinSeq  (ListaSeq *L, int rg);
 
-// ordenações 
+// ordenações
 void selectionSort  (ListaSeq *L);
-void insertionSort(ListaSeq *L);
-void bubbleSort(ListaSeq *L);
-void shellSort(ListaSeq *L);
-void quickSort(ListaSeq *L);
-void mergeSort(ListaSeq *L);
-
+void insertionSort  (ListaSeq *L);
+void bubbleSort     (ListaSeq *L);
+void shellSort      (ListaSeq *L);
+void quickSort      (ListaSeq *L);
+void mergeSort      (ListaSeq *L);
 
 // I/O e exibição
 void imprimirListaSeq   (ListaSeq *L);

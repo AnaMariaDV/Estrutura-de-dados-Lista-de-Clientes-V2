@@ -1,8 +1,6 @@
-// lib_enc.h — Cabeçalho da Lista Encadeada
 #ifndef LIB_ENC_H
 #define LIB_ENC_H
 
-#include <time.h>
 #define MAX_NOME 50
 
 typedef struct Node {
@@ -10,8 +8,6 @@ typedef struct Node {
     int  rg;
     struct Node *proximo;
 } Node;
-// menu
-void menuEncadeada(Node **head);
 
 // criação/liberação
 Node* criarListaEnc(void);
@@ -34,5 +30,8 @@ void buscarEnc          (Node *head, int rg);
 void imprimirListaEnc   (Node *head);
 void gravarArquivoEnc   (Node *head, const char *nomeArquivo);
 Node* lerArquivoEnc     (const char *nomeArquivo);
+
+// menu
+void menuEncadeada      (Node **head);
 
 #endif // LIB_ENC_H
