@@ -37,7 +37,7 @@ void inserirInicioSeq(ListaSeq *L, const char *nome, int rg) {
     strncpy(L->itens[0].nome, nome, MAX_NOME);
     L->itens[0].rg = rg; M++;
     L->tamanho++;
-    printf("Inserido: %s, %d, posição: 0\n", nome, rg);
+    printf("Inserido: %s, %d, posicao: 0\n", nome, rg);
     MET_END("inserirInicioSeq");
 }
 
@@ -47,7 +47,7 @@ void inserirFimSeq(ListaSeq *L, const char *nome, int rg) {
     int pos = L->tamanho++;
     strncpy(L->itens[pos].nome, nome, MAX_NOME);
     L->itens[pos].rg = rg; M++;
-    printf("Inserido: %s, %d, posição: %d\n", nome, rg, pos);
+    printf("Inserido: %s, %d, posicao: %d\n", nome, rg, pos);
     MET_END("inserirFimSeq");
 }
 
@@ -60,14 +60,14 @@ void inserirPosicaoSeq(ListaSeq *L, const char *nome, int rg, int pos) {
     strncpy(L->itens[pos].nome, nome, MAX_NOME);
     L->itens[pos].rg = rg; M++;
     L->tamanho++;
-    printf("Inserido: %s, %d, posição: %d\n", nome, rg, pos);
+    printf("Inserido: %s, %d, posicao: %d\n", nome, rg, pos);
     MET_END("inserirPosicaoSeq");
 }
 
 void removerInicioSeq(ListaSeq *L) {
     MET_START;
     if (L->tamanho == 0) return;
-    printf("Removido: %s, %d, posição: 0\n", L->itens[0].nome, L->itens[0].rg);
+    printf("Removido: %s, %d, posicao: 0\n", L->itens[0].nome, L->itens[0].rg);
     for (int i = 0; i + 1 < L->tamanho; ++i) {
         L->itens[i] = L->itens[i+1]; M++;
     }
@@ -78,7 +78,7 @@ void removerInicioSeq(ListaSeq *L) {
 void removerFimSeq(ListaSeq *L) {
     MET_START;
     if (L->tamanho == 0) return;
-    printf("Removido: %s, %d, posição: %d\n", L->itens[L->tamanho-1].nome, L->itens[L->tamanho-1].rg, L->tamanho-1);
+    printf("Removido: %s, %d, posicao: %d\n", L->itens[L->tamanho-1].nome, L->itens[L->tamanho-1].rg, L->tamanho-1);
     L->tamanho--;
     MET_END("removerFimSeq");
 }
@@ -86,10 +86,10 @@ void removerFimSeq(ListaSeq *L) {
 void removerPosicaoSeq(ListaSeq *L, int pos) {
     MET_START;
     if (pos < 0 || pos >= L->tamanho) {
-        printf("Posição inválida\n");
+        printf("Posicao invalida\n");
         return;
     }
-    printf("Removido: %s, %d, posição: %d\n", L->itens[pos].nome, L->itens[pos].rg, pos);
+    printf("Removido: %s, %d, posicao: %d\n", L->itens[pos].nome, L->itens[pos].rg, pos);
     for (int i = pos; i + 1 < L->tamanho; ++i) {
         L->itens[i] = L->itens[i+1]; M++;
     }
@@ -102,12 +102,12 @@ void buscarSeq(ListaSeq *L, int rg) {
     for (int i = 0; i < L->tamanho; ++i) {
         C++;
         if (L->itens[i].rg == rg) {
-            printf("Encontrado: %s, %d, posição: %d\n", L->itens[i].nome, L->itens[i].rg, i);
+            printf("Encontrado: %s, %d, posicao: %d\n", L->itens[i].nome, L->itens[i].rg, i);
             MET_END("buscarSeq");
             return;
         }
     }
-    printf("buscarSeq: não encontrado\n");
+    printf("buscarSeq: nao encontrado\n");
 }
 
 void buscarBinSeq(ListaSeq *L, int rg) {
@@ -116,14 +116,14 @@ void buscarBinSeq(ListaSeq *L, int rg) {
     while (lo <= hi) {
         int m = (lo + hi) / 2; C++;
         if (L->itens[m].rg == rg) {
-            printf("Encontrado: %s, %d, posição: %d\n", L->itens[m].nome, L->itens[m].rg, m);
+            printf("Encontrado: %s, %d, posicao: %d\n", L->itens[m].nome, L->itens[m].rg, m);
             MET_END("buscarBinSeq");
             return;
         }
         if (L->itens[m].rg < rg) lo = m + 1;
         else hi = m - 1;
     }
-    printf("buscarBinSeq: não encontrado\n");
+    printf("buscarBinSeq: nao encontrado\n");
 }
 
 // Os métodos de ordenação e I/O permanecem como estão, só adicione printf nas exibições de elementos, se quiser mostrar posição.

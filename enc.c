@@ -28,7 +28,7 @@ void inserirInicioEnc(Node **head, const char *nome, int rg) {
     n->rg = rg; M++;
     n->proximo = *head; M++;
     *head = n;
-    printf("Inserido: %s, %d, posição: 0\n", n->nome, n->rg);
+    printf("Inserido: %s, %d, posicao: 0\n", n->nome, n->rg);
     MET_END("inserirInicioEnc");
 }
 
@@ -41,14 +41,14 @@ void inserirFimEnc(Node **head, const char *nome, int rg) {
     int pos = 0;
     if (!*head) {
         *head = n; M++;
-        printf("Inserido: %s, %d, posição: %d\n", n->nome, n->rg, pos);
+        printf("Inserido: %s, %d, posicao: %d\n", n->nome, n->rg, pos);
         MET_END("inserirFimEnc");
         return;
     }
     Node *p = *head;
     while (p->proximo) { p = p->proximo; C++; pos++; }
     p->proximo = n; M++;
-    printf("Inserido: %s, %d, posição: %d\n", n->nome, n->rg, pos + 1);
+    printf("Inserido: %s, %d, posicao: %d\n", n->nome, n->rg, pos + 1);
     MET_END("inserirFimEnc");
 }
 
@@ -65,7 +65,7 @@ void inserirPosicaoEnc(Node **head, const char *nome, int rg, int pos) {
     n->rg = rg; M++;
     n->proximo = p ? p->proximo : NULL; M++;
     if (p) p->proximo = n; else *head = n;
-    printf("Inserido: %s, %d, posição: %d\n", n->nome, n->rg, pos);
+    printf("Inserido: %s, %d, posicao: %d\n", n->nome, n->rg, pos);
     MET_END("inserirPosicaoEnc");
 }
 
@@ -73,7 +73,7 @@ void removerInicioEnc(Node **head) {
     MET_START;
     if (!*head) return;
     Node *t = *head;
-    printf("Removido: %s, %d, posição: 0\n", t->nome, t->rg);
+    printf("Removido: %s, %d, posicao: 0\n", t->nome, t->rg);
     *head = t->proximo; M++;
     free(t);
     MET_END("removerInicioEnc");
@@ -85,7 +85,7 @@ void removerFimEnc(Node **head) {
     Node *p = *head, *ant = NULL;
     int pos = 0;
     while (p->proximo) { ant = p; p = p->proximo; C++; pos++; }
-    printf("Removido: %s, %d, posição: %d\n", p->nome, p->rg, pos);
+    printf("Removido: %s, %d, posicao: %d\n", p->nome, p->rg, pos);
     if (ant) ant->proximo = NULL, M++;
     else    *head = NULL;
     free(p);
@@ -101,7 +101,7 @@ void removerPosicaoEnc(Node **head, int pos) {
     Node *p = *head, *ant = NULL; int i = 0;
     while (p && i < pos) { ant = p; p = p->proximo; C++; i++; }
     if (!p) return;
-    printf("Removido: %s, %d, posição: %d\n", p->nome, p->rg, pos);
+    printf("Removido: %s, %d, posicao: %d\n", p->nome, p->rg, pos);
     ant->proximo = p->proximo; M++;
     free(p);
     MET_END("removerPosicaoEnc");
@@ -113,14 +113,14 @@ void buscarEnc(Node *head, int rg) {
     while (head) {
         C++;
         if (head->rg == rg) {
-            printf("Encontrado: %s, %d, posição: %d\n", head->nome, head->rg, pos);
+            printf("Encontrado: %s, %d, posicao: %d\n", head->nome, head->rg, pos);
             MET_END("buscarEnc");
             return;
         }
         head = head->proximo;
         pos++;
     }
-    printf("buscarEnc: não encontrado\n");
+    printf("buscarEnc: nao encontrado\n");
 }
 
 void imprimirListaEnc(Node *head) {

@@ -8,10 +8,10 @@ void menuSequencial(ListaSeq *L) {
     do {
         printf(
             "\nMenu Sequencial:\n"
-            " 1) Inserir início\n"
+            " 1) Inserir inicio\n"
             " 2) Inserir fim\n"
             " 3) Inserir N\n"
-            " 4) Remover início\n"
+            " 4) Remover inicio\n"
             " 5) Remover fim\n"
             " 6) Remover N\n"
             " 7) Buscar RG\n"
@@ -51,7 +51,7 @@ void menuSequencial(ListaSeq *L) {
                 break;
             case 7:
                 printf("RG? ");      scanf("%d", &rg);
-                printf("1) Sequencial  2) Binária\n>> ");
+                printf("1) Sequencial  2) Binaria\n>> ");
                 {
                     int m; scanf("%d", &m);
                     if (m == 1) buscarSeq(L, rg);
@@ -75,7 +75,7 @@ void menuSequencial(ListaSeq *L) {
                 printf("Saindo...\n");
                 break;
             default:
-                printf("Opção inválida\n");
+                printf("Opção invalida\n");
         }
     } while (op != 11);
 }
